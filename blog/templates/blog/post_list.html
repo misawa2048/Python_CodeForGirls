@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <script>
+        function onButton(obj){
+          console.log(obj.value);
+          obj.value=obj.value+1;
+          return obj;
+        }
+      </script>
         <title>Django Girls blog</title>
     </head>
     <body>
+<form>
+  <input type="button" value="0" id="iBtn" width="100px" onClick="onButton(this)" />
+</form>
+
       {% for post in posts %}
       <div>
           <p>published: {{ post.published_date }}</p>
