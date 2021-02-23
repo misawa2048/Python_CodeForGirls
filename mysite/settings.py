@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
+    'api.templatetags.custom_filters',
 ]
 
 MIDDLEWARE = [

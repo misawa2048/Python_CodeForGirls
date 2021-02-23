@@ -1,1 +1,2 @@
-{{ rand_int.rand }}
+{% load custom_filters %}
+{{ rand_int.rand | times_two }}

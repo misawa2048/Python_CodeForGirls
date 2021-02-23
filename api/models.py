@@ -6,8 +6,8 @@ class Rand_int(models.Model):
     value = models.IntegerField(default=123)
     seed = 0
 
-    def rand(self):
-      self.seed = 456;
+    def rand(self,seed=456):
+      self.seed = seed;
       self.value = self.seed*2
       return self.value
 
