@@ -1,2 +1,2 @@
 {% load custom_filters %}
-{{ rand_int.rand | times_two }}
+{{ rand_int.rand | f_seed:seed }}

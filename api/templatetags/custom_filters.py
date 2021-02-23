@@ -4,9 +4,12 @@ from django import template
 
 register = template.Library()
 
-@register.filter(base_num=123)
-def times_two(value):
+@register.filter()
+def f_seed(value,args):
   #from string import split, atoi
   #from myproject.myapp.models import Staff
-  return value*2
-
+  return args
+  
+@register.filter()
+def f_times(value,args):
+  return value*args
