@@ -24,6 +24,7 @@ def m_twice(val):
 
 
 """
+#dummy
 def rand(request,seed=1):
   rand_int = Rand_int
   seed=1
