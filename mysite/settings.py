@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'api.templatetags.custom_filters',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
