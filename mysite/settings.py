@@ -25,7 +25,9 @@ SECRET_KEY = '&2=-y$q1yf$s-5y=mbae+^hlk-cj*@z(lui53r7)=+76@9635m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'elix1054.pythonanywhere.com',
+]
 
 
 # Application definition
