@@ -26,9 +26,9 @@ SECRET_KEY = '&2=-y$q1yf$s-5y=mbae+^hlk-cj*@z(lui53r7)=+76@9635m'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'elix1054.pythonanywhere.com',
+#    'elix1054.pythonanywhere.com',
+#    '127.0.0.1:8000',
 ]
-
 
 # Application definition
 

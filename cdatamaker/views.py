@@ -8,6 +8,7 @@ def cdatamaker(request):
   return render(request, 'cdatamaker/index.html', {'cdatamaker': cdatamaker})
 
 def getdata(request):
-  r = requests.get("https://news.yahoo.co.jp/")
-  return HttpResponse({ 'getdata': r })
+  r = "222" #requests.get("https://news.yahoo.co.jp/")
+#  return HttpResponse({ 'getdata': r })
+  return render(request, {'getdata': r})
 

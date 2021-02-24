@@ -4,13 +4,12 @@
     function onClick(){
       var outTxtEle = document.getElementById("iOutText");
       var inTxtEle = document.getElementById("iInText");
-      outTxtEle.value = inTxtEle.value+":" + "<>";
-      //{{ getdata }}
+      outTxtEle.value = '{{ "getdata-" }}' ;
     }
   </script>
 </head><body>
   hello
-  {{ getdata }}
+  {{ "getdata" }}
   <form id = "iForm1">
     <input id="iInText" type="text" value="123"/>
     <input type="button" value="send" onclick="onClick()"/>
