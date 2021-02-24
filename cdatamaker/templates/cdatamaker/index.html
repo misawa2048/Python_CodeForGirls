@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head>
+  <script>
+    function onClick(){
+      var outTxtEle = document.getElementById("iOutText");
+      var inTxtEle = document.getElementById("iInText");
+      outTxtEle.value = inTxtEle.value+":" + "<>";
+      //{{ getdata }}
+    }
+  </script>
+</head><body>
+  hello
+  {{ getdata }}
+  <form id = "iForm1">
+    <input id="iInText" type="text" value="123"/>
+    <input type="button" value="send" onclick="onClick()"/>
+  </form>
+  <form id = "iForm2">
+    <input id = "iOutText" type="text" value=""/>
+  </form>
+</body></html>

@@ -25,9 +25,7 @@ SECRET_KEY = '&2=-y$q1yf$s-5y=mbae+^hlk-cj*@z(lui53r7)=+76@9635m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'elix1054.pythonanywhere.com',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -43,6 +41,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
     'api.templatetags.custom_filters',
+    'cdatamaker.apps.CdatamakerConfig',
 ]
 
 
