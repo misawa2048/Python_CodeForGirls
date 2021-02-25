@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.http import HttpResponse
 from .models import Rand_int
+from django.urls import reverse
 import requests
 
 def usage(request):
-  return HttpResponse({'How to use:'})
+  return HttpResponse({'How to use api/:<br>/rand_int?seed=[num]<br>/t2a?text=[text]<br>/s2a/[text]<br>'})
 
 #https://www.nblog09.com/w/2019/04/07/django-query/
 def rand_int(request):
@@ -23,13 +24,16 @@ def t2a(request):
     text = request.GET['text']
   return HttpResponse({ text_to_audio(text) })
 
+def s2a(request,text):
+  return HttpResponse("[{0}]".format(text))
+
 
 # may be should move to model.py, but useful like this.
 def m_twice(val):
   return int(val)*2
 
 def text_to_audio(text):
-  return "<"+text+">"
+  return "{"+text+"}"
 
 
 """
