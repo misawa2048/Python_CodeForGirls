@@ -24,3 +24,6 @@ urlpatterns = [
     path('', include('cdatamaker.urls')),
     path('test/', server_error),
 ]
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
