@@ -6,7 +6,8 @@ from django.urls import reverse
 import requests
 
 def usage(request):
-  return HttpResponse({'How to use api/:<br>/rand_int?seed=[num]<br>/t2a?text=[text]<br>/s2a/[text]<br>'})
+  #return HttpResponse({'How to use api/:<br>/rand_int?seed=[num]<br>/t2a?text=[text]<br>/s2a/[text]<br>'})
+  return render(request, 'api/usage.html', {})
 
 #https://www.nblog09.com/w/2019/04/07/django-query/
 def rand_int(request):
