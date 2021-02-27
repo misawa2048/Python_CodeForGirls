@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html><head>
   <script>
-    function callback(_jsonObj){
+    function callback(_jsonTxt){
+      console.log("_jsonTxt:"+_jsonTxt);
+      var jsonObj = JSON.parse(_jsonTxt);
+      console.log("callback:"+jsonObj);
       var outTxtEle = document.getElementById("iOutText");
-      var inTxtEle = document.getElementById("iInText");
-      outTxtEle.value = _jsonObj.text;
+      outTxtEle.value = jsonObj.text;
     }
     function onClick(){
-      var cbObj={text:"return data", val:22};
-      callback(cbObj);
+      console.log("onClick()");
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function() {
+        var result = document.getElementById("iOutText");
+        if (req.readyState == 4) { // 通信の完了時
+          if (req.status == 200) { // 通信の成功時
+            console.log("200 ok:"+req.responseText);
+            callback(req.responseText);
+          }
+        }else{
+          console.log("通信中...");
+          result.innerHTML = "通信中...";
+        }
+      }
+      console.log("req start");
+      req.open('GET', '/api/s2a/aba', true);
+      req.send(null);        
     }
   </script>
 </head><body>

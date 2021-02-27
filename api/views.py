@@ -26,7 +26,7 @@ def t2a(request):
   return HttpResponse({ text_to_audio(text) })
 
 def s2a(request,text):
-  return HttpResponse("[{'text':"+'{0}'.format(text)+"}]")
+  return HttpResponse('{"text":'+'"{0}"'.format(text+'-'+text)+'}');
 
 
 # may be should move to model.py, but useful like this.
