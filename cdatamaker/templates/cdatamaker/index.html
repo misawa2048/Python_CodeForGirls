@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html><head>
   <script>
-    function onClick(){
+    function callback(_jsonObj){
       var outTxtEle = document.getElementById("iOutText");
       var inTxtEle = document.getElementById("iInText");
-      outTxtEle.value = '{{ "getdata-" }}' ;
+      outTxtEle.value = _jsonObj.text;
+    }
+    function onClick(){
+      var cbObj={text:"return data", val:22};
+      callback(cbObj);
     }
   </script>
 </head><body>

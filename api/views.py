@@ -17,7 +17,7 @@ def rand_int(request):
     seed = request.GET['seed']
 
   return HttpResponse({ m_twice(seed) })
-#  return render(request, 'api/rand_int.html', {'rand_int': rand_int, 'seed' : m_twice(seed) })
+#  return render(request, 'api/rand_int', {'rand_int': rand_int, 'seed' : m_twice(seed) })
 
 def t2a(request):
   text='"no data"'
@@ -26,7 +26,7 @@ def t2a(request):
   return HttpResponse({ text_to_audio(text) })
 
 def s2a(request,text):
-  return HttpResponse("[{0}]".format(text))
+  return HttpResponse("[{'text':"+'{0}'.format(text)+"}]")
 
 
 # may be should move to model.py, but useful like this.
@@ -34,7 +34,7 @@ def m_twice(val):
   return int(val)*2
 
 def text_to_audio(text):
-  return "{"+text+"}"
+  return "{'text':"+text+"}"
 
 
 """
