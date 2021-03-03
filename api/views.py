@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.utils import timezone
 from django.http import HttpResponse
-from .models import Rand_int
 from django.urls import reverse
 import requests
+from .models import Rand_int
+from .models import TextToWav
 
 def usage(request):
   #return HttpResponse({'How to use api/:<br>/rand_int?seed=[num]<br>/t2a?text=[text]<br>/s2a/[text]<br>'})
@@ -26,7 +27,14 @@ def t2a(request):
   return HttpResponse({ text_to_audio(text) })
 
 def s2a(request,text):
-  return HttpResponse('{"text":'+'"{0}"'.format(text+'-'+text)+'}');
+  t2w = TextToWav
+  #t2w = TextToWav(samplerate=16000, volume=0.5)
+  #t2w.text_to_wav(t2w,_text=text)
+  t2w.volume=0.2
+  text = t2w.cat_text2(t2w,_text=text)
+  text = text+"!"
+  return HttpResponse('{"text":'+'"{0}"'.format(text+'--'+text)+'}');
+  #return HttpResponse('{"text":'+'"{0}"'.format(text+'--'+text)+'}');
 
 
 # may be should move to model.py, but useful like this.
