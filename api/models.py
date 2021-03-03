@@ -21,9 +21,9 @@ import wave
 import struct
 
 class TextToWav(models.Model):
-    sample_rate = models.IntegerField(default=16000)
-    pulse_hz = models.IntegerField(default=1200)
-    volume = models.FloatField(default=0.5)
+    sample_rate:float = 16000.0 #models.FloatField(default=16000.0)
+    pulse_hz:float = 1200.0 #models.FloatField(default=1200.0)
+    volume:float = 0.5 #models.FloatField(default=0.5)
     audio = []
 
     '''
@@ -52,7 +52,8 @@ class TextToWav(models.Model):
         return _audio
 
     def append_sinPulse(self, _audio, _pulse_bit=0, _pulseNum=1):
-        per_samples = self.sample_rate / (self.pulse_hz*(_pulse_bit+1))
+        base_hz = (self.pulse_hz*(_pulse_bit+1))
+        per_samples = self.sample_rate / base_hz
         for x in range(int(_pulseNum * per_samples)):
             val =  self.volume * math.sin(2 * math.pi * ( x / per_samples ));
             _audio.append(val)
@@ -108,7 +109,7 @@ class TextToWav(models.Model):
 
         self.audio = self.append_sinPulse(self,self.audio,1,16000)
         self.audio = self.append_bytes_to_tone(self,self.audio,b'\xd3\xd3\xd3\xd3\xd3\xd3\xd3\xd3\xd3\xd3') #0xD3 x 10
-        self.audio = self.append_bytes_to_tone(self,self.audio, (filename+".cas").encode('utf-8')) # filename
+        self.audio = self.append_bytes_to_tone(self,self.audio, (_filename+".cas").encode('utf-8')) # filename
         self.audio = self.append_silence(self,self.audio,1700) # space
         self.audio = self.append_sinPulse(self,self.audio,1,4000) # short header
         self.audio = self.append_bytes_to_tone(self,self.audio, _bindata,10000) # data body

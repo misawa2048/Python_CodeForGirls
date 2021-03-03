@@ -28,12 +28,13 @@ def t2a(request):
 
 def s2a(request,text):
   t2w = TextToWav
-  #t2w = TextToWav(samplerate=16000, volume=0.5)
-  #t2w.text_to_wav(t2w,_text=text)
   t2w.volume=0.2
+  filepath = "wav/output"
+  #t2w = TextToWav(samplerate=16000, volume=0.5)
+  t2w.text_to_wav(t2w,_text=text,_filename=filepath)
   text = t2w.cat_text2(t2w,_text=text)
   text = text+"!"
-  return HttpResponse('{"text":'+'"{0}"'.format(text+'--'+text)+'}');
+  return HttpResponse('{"text":'+'"{0}"'.format(text+'--'+text)+',path:"'+filepath+'"'+'}');
   #return HttpResponse('{"text":'+'"{0}"'.format(text+'--'+text)+'}');
 
 
