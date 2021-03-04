@@ -75,9 +75,12 @@ class TextToWav(models.Model):
 
         return _audio
 
+    def get_full_path(self):
+        return settings.MEDIA_ROOT+'/'
+
     def save_wav(self, _audio, _filename, _callback=None):
         # Open up a wav file
-        wav_file=wave.open(_filename,"w")
+        wav_file=wave.open(self.get_full_path(self)+_filename,"w")
 
         # wav params
         nchannels = 1
