@@ -28,10 +28,13 @@ def t2a(request):
   if 'path' in request.GET:
     path = request.GET['path']
 
+  '''
   if 'text' in request.POST:
     text = request.POST['text']
   if 'path' in request.POST:
     path = request.POST['path']
+  '''
+
   return HttpResponse({ text_to_audio(_text=text,_path=path) })
 
 def s2a(request,text):
