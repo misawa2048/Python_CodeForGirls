@@ -2,7 +2,8 @@
 <html><head>
   <script>
     function callback(_jsonTxt){
-      console.log("_jsonTxt:"+_jsonTxt);
+      var outTxtFullEle = document.getElementById("iOutTextFull");
+      outTxtFullEle.value = _jsonTxt;
       var jsonObj = JSON.parse(_jsonTxt);
       console.log("callback:"+jsonObj);
       var outTxtEle = document.getElementById("iOutText");
@@ -20,11 +21,20 @@
           }
         }else{
           console.log("通信中...");
-          result.innerHTML = "通信中...";
+          result.value = "通信中...";
         }
       }
-      console.log("req start");
-      req.open('GET', '/api/s2a/aba', true);
+      
+      var paramEle = document.getElementById("iInText");
+      var text=paramEle.value;
+      if(text==""){
+        text="dummy";
+      }
+      
+      let utf8str = String.fromCharCode.apply(null, new TextEncoder().encode(text));
+      console.log("req start:"+utf8str);
+      req.open('GET', '/api/s2a/'+utf8str, true);
+      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       req.send(null);        
     }
   </script>
@@ -39,6 +49,7 @@
     <input type="button" value="send" onclick="onClick()"/>
   </form>
   <form id = "iForm2">
-    <input id = "iOutText" type="text" value=""/>
+    <input id = "iOutText" type="text" value=""/><br/>
+    <input id = "iOutTextFull" type="text" value=""/>
   </form>
 </body></html>
