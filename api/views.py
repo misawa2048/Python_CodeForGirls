@@ -22,9 +22,17 @@ def rand_int(request):
 
 def t2a(request):
   text='"no data"'
+  path='"output"'
   if 'text' in request.GET:
     text = request.GET['text']
-  return HttpResponse({ text_to_audio(text) })
+  if 'path' in request.GET:
+    path = request.GET['path']
+
+  if 'text' in request.POST:
+    text = request.POST['text']
+  if 'path' in request.POST:
+    path = request.POST['path']
+  return HttpResponse({ text_to_audio(_text=text,_path=path) })
 
 def s2a(request,text):
   t2w = TextToWav
@@ -43,8 +51,8 @@ def s2a(request,text):
 def m_twice(val):
   return int(val)*2
 
-def text_to_audio(text):
-  return "{'text':"+text+"}"
+def text_to_audio(_text,_path):
+  return '{"text":"'+_text+'", "path":"'+_path+'"}'
 
 
 """
