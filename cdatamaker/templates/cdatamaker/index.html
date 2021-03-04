@@ -8,7 +8,9 @@
       var jsonObj = JSON.parse(_jsonTxt);
       console.log("callback:"+jsonObj);
       var outTxtEle = document.getElementById("iOutText");
-      outTxtEle.value = jsonObj.text;
+      outTxtEle.value = jsonObj.text.replace(/'^20'/g, '"');
+
+      addAudioArea(jsonObj.path);
     }
     function onClick(){
       console.log("onClick()");
@@ -27,7 +29,7 @@
       }
 
       var inTextEle = document.getElementById("iInText");
-      var text=inTextEle.value;
+      var text = inTextEle.value.replace(/"/g, '^20');
       if(text==""){
         text="dummy";
       }
@@ -44,6 +46,19 @@
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       req.send(Document);        
     }
+
+    function addAudioArea(filename){
+      var tgtDivEle = document.getElementById("iAudioOutDiv");
+      var audioEle = document.createElement("audio");
+      audioEle.preload="metadata";
+      audioEle.controls = true;
+      var srcEle = document.createElement("source");
+      srcEle.src="media/"+filename+".wav";
+      srcEle.type="audio/wav";
+      audioEle.appendChild(srcEle);
+      tgtDivEle.appendChild(audioEle);
+    }
+
   </script>
 </head><body>
   {% load static %}
@@ -52,7 +67,11 @@
   hello
   {{ "getdata" }}
   <form id = "iForm1">
-    <input id="iInText" type="text" value="123"/>
+    <textarea  id="iInText" type="text" rows="10" cols="50">
+10 cls
+20 print "d""hello"
+30 goto 20
+    </textarea><br/>
     <input id="iInPath" type="text" value="output"/>
     <input type="button" value="send" onclick="onClick()"/>
   </form>
@@ -61,10 +80,7 @@
     <input id = "iOutTextFull" type="text" value=""/>
   </form>
 
-  <audio preload="metadata" controls>
-    <source src="media/output.wav" type="audio/wav">
-    <source src="media/output.mp3" type="audio/mp3">
-    <source src="media/output.ogg" type="audio/ogg">
-</audio>
+  <div id="iAudioOutDiv">
+  </div>
     
 </body></html>
