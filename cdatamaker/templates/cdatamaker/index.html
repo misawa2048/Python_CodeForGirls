@@ -24,7 +24,7 @@
           result.value = "通信中...";
         }
       }
-      
+
       var paramEle = document.getElementById("iInText");
       var text=paramEle.value;
       if(text==""){
@@ -52,4 +52,11 @@
     <input id = "iOutText" type="text" value=""/><br/>
     <input id = "iOutTextFull" type="text" value=""/>
   </form>
+
+  <audio preload="metadata" controls>
+    <source src="media/output.wav" type="audio/wav">
+    <source src="media/output.mp3" type="audio/mp3">
+    <source src="media/output.ogg" type="audio/ogg">
+</audio>
+    
 </body></html>
