@@ -28,20 +28,18 @@ def t2a(request):
   if 'path' in request.GET:
     path = request.GET['path']
 
-  '''
   if 'text' in request.POST:
     text = request.POST['text']
   if 'path' in request.POST:
     path = request.POST['path']
-  '''
 
-  return HttpResponse({ text_to_audio(_text=text,_path=path) })
+  #return HttpResponse({ text_to_audio(_text=text,_path=path) })
+  return s2a(request,text=text,filepath=path)
 
-def s2a(request,text):
+def s2a(request,text,filepath="output"):
   t2w = TextToWav
   t2w.volume=0.2
-  filepath = "output"
-  fullfilepath = t2w.get_full_path(t2w)+"output"
+  fullfilepath = t2w.get_full_path(t2w)+filepath
   #t2w = TextToWav(samplerate=16000, volume=0.5)
   t2w.text_to_wav(t2w,_text=text,_filename=filepath)
   #text = t2w.cat_text2(t2w,_text=text)
