@@ -26,8 +26,6 @@ SECRET_KEY = '&2=-y$q1yf$s-5y=mbae+^hlk-cj*@z(lui53r7)=+76@9635m'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'elix1054.pythonanywhere.com',
-#    '127.0.0.1:8000',
 ]
 
 # Application definition
@@ -125,5 +123,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+import os
+
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static') # each_app/static/ when comment out
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # /media/
+
+ALLOWED_HOSTS += [
+    'elix1054.pythonanywhere.com',
+    '127.0.0.1',
+]
