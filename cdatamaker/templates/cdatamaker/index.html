@@ -64,15 +64,14 @@
   {% load static %}
   <img src="{% static 'images/lenna_high.png' %}" width="100px" border="0" /><br/>
   
-  hello
-  {{ "getdata" }}
   <form id = "iForm1">
+    text:<br/>
     <textarea  id="iInText" type="text" rows="10" cols="50">
 10 cls
 20 print "d""hello"
 30 goto 20
     </textarea><br/>
-    <input id="iInPath" type="text" value="output"/>
+    filename:<input id="iInPath" type="text" value="output"/>
     <input type="button" value="send" onclick="onClick()"/>
   </form>
   <form id = "iForm2">
