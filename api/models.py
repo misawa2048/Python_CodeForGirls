@@ -80,7 +80,35 @@ class TextToWav(models.Model):
 
     def save_wav(self, _audio, _filename, _callback=None):
         # Open up a wav file
-        wav_file=wave.open(self.get_full_path(self)+_filename,"w")
+        wav_file=wave.open(self.get_full_path(self)+_filename+".wav","w")
+
+        # wav params
+        nchannels = 1
+        sampwidth = 2
+
+        # 44100 is the industry standard sample rate - CD quality.  If you need to
+        # save on file size you can adjust it downwards. The stanard for low quality
+        # is 8000 or 8kHz.
+        nframes = len(_audio)
+        comptype = "NONE"
+        compname = "not compressed"
+        wav_file.setparams((nchannels, sampwidth, self.sample_rate, nframes, comptype, compname))
+
+        # WAV files here are using short, 16 bit, signed integers for the 
+        # sample size.  So we multiply the floating point data we have by 32767, the
+        # maximum value for a short integer.  NOTE: It is theortically possible to
+        # use the floating point -1.0 to 1.0 data directly in a WAV file but not
+        # obvious how to do that using the wave module in python.
+        for sample in _audio:
+            wav_file.writeframesraw(struct.pack('h', int( sample * 32767.0 )))
+
+        wav_file.close()
+
+        return None if _callback==None else _callback()
+
+    def save_mp3(self, _audio, _filename, _callback=None):
+        # Open up a wav file
+        wav_file=wave.open(self.get_full_path(self)+_filename+".wav","w")
 
         # wav params
         nchannels = 1
@@ -118,7 +146,7 @@ class TextToWav(models.Model):
         self.audio = self.append_bytes_to_tone(self,self.audio, _bindata,10000) # data body
         self.audio = self.append_sinPulse(self,self.audio, 0, 7) # end of data
 
-        return self.save_wav(self,self.audio,_filename+".wav",_callback)
+        return self.save_wav(self,self.audio,_filename,_callback)
 
     def text_to_wav(self, _text:str="hello", _filename="outputwav", _callback=None):
         bindata = _text.encode()
