@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.db import models
-#from pydub import AudioSegmen
-from pydub import AudioSegment
-import numpy as np
+#from pydub import AudioSegment
+#import numpy as np
 
 class Rand_int(models.Model):
     value = models.IntegerField(default=12)
@@ -109,8 +108,8 @@ class TextToWav(models.Model):
 
         return None if _callback==None else _callback()
 
+    '''
     def save_mp3(self, _audio, _filename, _callback=None):
-
         a = np.array(_audio)
         a.tobytes()
         sound = AudioSegment(
@@ -120,8 +119,8 @@ class TextToWav(models.Model):
             channels=1 # monoral
         )
         sound.export(self.get_full_path(self)+_filename+".mp3", format="mp3")
-
         return None if _callback==None else _callback()
+    '''
 
     def bin_to_wav(self, _bindata:bytes,_filename,_callback=None):
         self.audio = []
