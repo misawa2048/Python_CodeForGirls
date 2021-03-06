@@ -29,7 +29,10 @@
       }
 
       var inTextEle = document.getElementById("iInText");
-      var text = inTextEle.value.replace(/"/g, '^20');
+      var text = inTextEle.value.replace(/"/g, '^22');
+      text = inTextEle.value.replace(/,/g, '^2C');
+      text = inTextEle.value.replace(/:/g, '^3A');
+      text = inTextEle.value.replace(/;/g, '^3B');
       if(text==""){
         text="dummy";
       }
@@ -79,16 +82,16 @@
         // pic to base64
         preview.src = reader.result;
         var inTextEle = document.getElementById("iInText");
+        var bs64Val = "";
+        var bs64Val = reader.result;
+        /*
         var bs64Arr = reader.result.split(',');
-        if(bs64Arr.length>1){
-          console.log("bs64Arr[1].length:"+bs64Arr[1].length);
-          if(bs64Arr[1].length>5000){
-            bs64Arr[1] = bs64Arr[1].substr(0,5000);
-          }
-          inTextEle.value = bs64Arr[1];
-        }else{
-          inTextEle.value = bs64Arr[0];
+        var bs64Val = bs64Arr[(bs64Arr.length>1)?1 :0]
+        */
+        if(bs64Val.length>5000){
+          bs64Val = bs64Val.substr(0,5000);
         }
+        inTextEle.value = bs64Val;
       }, false);
 
       if (file) {
