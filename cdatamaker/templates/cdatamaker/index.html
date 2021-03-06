@@ -8,44 +8,45 @@
       var jsonObj = JSON.parse(_jsonTxt);
       console.log("callback:"+jsonObj);
       var outTxtEle = document.getElementById("iOutText");
-      outTxtEle.value = jsonObj.text.replace(/'^20'/g, '"');
+      var text = jsonObj.text.replace(/'^22'/g, '"');
+      text = text.replace(/'^2C'/g, ',');
+      text = text.replace(/'^3A'/g, ':');
+      text = text.replace(/'^3B'/g, ';');
+      outTxtEle.value = text;
 
       addAudioArea(jsonObj.path);
     }
-    function onClick(){
-      console.log("onClick()");
+    function onSend(){
+      console.log("onSend()");
+      var path="output"+Math.floor(10+Math.random()*90);
+      var inPathEle = document.getElementById("iInPath");
+      inPathEle.value = path;
       var req = new XMLHttpRequest();
       req.onreadystatechange = function() {
-        var result = document.getElementById("iOutText");
         if (req.readyState == 4) { // 通信の完了時
           if (req.status == 200) { // 通信の成功時
             console.log("200 ok:"+req.responseText);
+            inPathEle.value = path;
             callback(req.responseText);
           }
         }else{
           console.log("通信中...");
-          result.value = "通信中...";
+          inPathEle.value = "通信中...";
         }
       }
 
       var inTextEle = document.getElementById("iInText");
       var text = inTextEle.value.replace(/"/g, '^22');
-      text = inTextEle.value.replace(/,/g, '^2C');
-      text = inTextEle.value.replace(/:/g, '^3A');
-      text = inTextEle.value.replace(/;/g, '^3B');
+      text = text.replace(/,/g, '^2C');
+      text = text.replace(/:/g, '^3A');
+      text = text.replace(/;/g, '^3B');
       if(text==""){
         text="dummy";
       }
       if(text.length>5000){
         text = text.substr(0,5000);
       }
-      var inPathEle = document.getElementById("iInPath");
-      var path=inPathEle.value;
-      console.log("inPathEle.value="+inPathEle.value);
-      if(path==""){
-        text="output";
-      }
-      
+      console.log("path="+path);
       let utf8str = String.fromCharCode.apply(null, new TextEncoder().encode(text));
       console.log("req start:"+utf8str);
       req.open('GET', '/api/t2a/?text='+utf8str+'&path='+path, true);
@@ -112,12 +113,12 @@
 20 print "d""hello"
 30 goto 20
     </textarea><br/>
-    filename:<input id="iInPath" type="text" value="output"/>
-    <input type="button" value="send" onclick="onClick()"/>
+    <input id="iInPath" type="text" value="output" readonly/>
+    <input type="button" value=".wavに変換" onclick="onSend()"/>
   </form>
   <form id = "iForm2">
-    <input id = "iOutText" type="text" value=""/><br/>
-    <input id = "iOutTextFull" type="text" value=""/>
+    <input type="hidden" id = "iOutText" type="text" value=""/>
+    <input type="hidden" id = "iOutTextFull" type="text" value=""/>
   </form>
 
   <div id="iAudioOutDiv">
