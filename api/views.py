@@ -39,10 +39,9 @@ def t2a(request):
 def s2a(request,text,filepath="output"):
   t2w = TextToWav
   t2w.volume=0.2
-  fullfilepath = t2w.get_full_path(t2w)+filepath
-  #t2w = TextToWav(samplerate=16000, volume=0.5)
   t2w.text_to_wav(t2w,_text=text,_filename=filepath)
   #text = t2w.cat_text2(t2w,_text=text)
+  #fullfilepath = t2w.get_full_path(t2w)+filepath
   #return HttpResponse('{"text":'+'"{0}"'.format(text)+',"path":"'+filepath+'","fullpath":"'+fullfilepath+'"}');
   return HttpResponse('{"text":'+'"{0}"'.format(text)+',"path":"'+filepath+'"}');
   #return HttpResponse('{"text":'+'"{0}"'.format(text+'--'+text)+'}');

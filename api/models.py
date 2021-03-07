@@ -1,7 +1,5 @@
 from django.conf import settings
 from django.db import models
-#from pydub import AudioSegment
-#import numpy as np
 
 class Rand_int(models.Model):
     value = models.IntegerField(default=12)
@@ -21,6 +19,8 @@ class Rand_int(models.Model):
 import math
 import wave
 import struct
+#from pydub import AudioSegment
+#import numpy as np
 
 class TextToWav(models.Model):
     sample_rate:float = 16000.0 #models.FloatField(default=16000.0)
@@ -108,6 +108,7 @@ class TextToWav(models.Model):
 
         return None if _callback==None else _callback()
 
+
     '''
     def save_mp3(self, _audio, _filename, _callback=None):
         a = np.array(_audio)
@@ -120,12 +121,21 @@ class TextToWav(models.Model):
         )
         sound.export(self.get_full_path(self)+_filename+".mp3", format="mp3")
         return None if _callback==None else _callback()
+
+    def bin_to_mp3(self, _bindata:bytes,_filename,_callback=None):
+        self.audio = self.bin_to_audio(self,_bindata,_filename)
+        return self.save_mp3(self,self.audio,_filename,_callback)
+
+    def text_to_mp3(self, _text:str="hello", _filename="outputwav", _callback=None):
+        bindata = _text.encode()
+        return self.bin_to_mp3(self,bindata, _filename,_callback)
     '''
 
-    def bin_to_wav(self, _bindata:bytes,_filename,_callback=None):
-        self.audio = []
-        #http://ngs.no.coocan.jp/doc/wiki.cgi/TechHan?page=2%BE%CF+%A5%AB%A5%BB%A5%C3%A5%C8%8E%A5%A5%A4%A5%F3%A5%BF%A1%BC%A5%D5%A5%A7%A5%A4%A5%B9
 
+
+    def bin_to_audio(self, _bindata:bytes,_filename):
+        #http://ngs.no.coocan.jp/doc/wiki.cgi/TechHan?page=2%BE%CF+%A5%AB%A5%BB%A5%C3%A5%C8%8E%A5%A5%A4%A5%F3%A5%BF%A1%BC%A5%D5%A5%A7%A5%A4%A5%B9
+        self.audio = []
         self.audio = self.append_sinPulse(self,self.audio,1,12000) #16000
         self.audio = self.append_bytes_to_tone(self,self.audio,b'\xd3\xd3\xd3\xd3\xd3\xd3\xd3\xd3\xd3\xd3') #0xD3 x 10
         self.audio = self.append_bytes_to_tone(self,self.audio, (_filename+".cas").encode('utf-8')) # filename
@@ -133,7 +143,10 @@ class TextToWav(models.Model):
         self.audio = self.append_sinPulse(self,self.audio,1,4000) # short header
         self.audio = self.append_bytes_to_tone(self,self.audio, _bindata,10000) # data body
         self.audio = self.append_sinPulse(self,self.audio, 0, 7) # end of data
+        return self.audio
 
+    def bin_to_wav(self, _bindata:bytes,_filename,_callback=None):
+        self.audio = self.bin_to_audio(self,_bindata,_filename)
         return self.save_wav(self,self.audio,_filename,_callback)
 
     def text_to_wav(self, _text:str="hello", _filename="outputwav", _callback=None):
@@ -172,14 +185,3 @@ class TextToWav(models.Model):
 
     def cat_text2(self,_text:str):
         return self.cat_text(self,_text=_text)
-
-
-'''
-t2w = TextToWav(samplerate=16000, volume=0.5)
-t2w.text_to_wav(planestr,filename,callback)
-
-#bindata = planestr.encode()
-#t2w.debug_disp_bindata(bindata)
-#t2w.debug_disp_bytes(bindata)
-
-'''

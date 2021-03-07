@@ -36,16 +36,18 @@
       }
 
       var inTextEle = document.getElementById("iInText");
-      var text = inTextEle.value.replace(/"/g, '^22');
-      text = text.replace(/,/g, '^2C');
-      text = text.replace(/:/g, '^3A');
-      text = text.replace(/;/g, '^3B');
+      var text = inTextEle.value;
       if(text==""){
         text="dummy";
       }
       if(text.length>5000){
         text = text.substr(0,5000);
       }
+      text = inTextEle.value.replace(/"/g, '^22');
+      text = text.replace(/,/g, '^2C');
+      text = text.replace(/:/g, '^3A');
+      text = text.replace(/;/g, '^3B');
+
       console.log("path="+path);
       let utf8str = String.fromCharCode.apply(null, new TextEncoder().encode(text));
       console.log("req start:"+utf8str);
