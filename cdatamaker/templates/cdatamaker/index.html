@@ -58,16 +58,32 @@
 
     function addAudioArea(filename){
       var tgtDivEle = document.getElementById("iAudioOutDiv");
+      var agent = window.navigator.userAgent.toLowerCase();
+      var isUseSample=(agent.includes("iphone")||agent.includes("ipad"));
+      if(isUseSample){
+        var preEle = document.createElement("pre");
+        preEle.innerHTML="この端末ではwavを鳴らすことができません。<br/>サンプルのmp3を出力しました";
+        tgtDivEle.appendChild(preEle);
+      }
+
       var audioEle = document.createElement("audio");
       audioEle.preload="metadata";
       audioEle.controls = true;
-      var srcEle = document.createElement("source");
-      srcEle.src="media/"+filename+".wav";
-      srcEle.type="audio/wav";
-      var src2Ele = document.createElement("source");
-      src2Ele.src="media/"+"output"+".mp3";
-      src2Ele.type="audio/mp3";
-      audioEle.appendChild(srcEle);
+      if(isUseSample){
+        var src2Ele = document.createElement("source");
+        src2Ele.src="media/output.mp3";
+        src2Ele.type="audio/mp3";
+        audioEle.appendChild(src2Ele);
+      }else{
+        var srcEle = document.createElement("source");
+        srcEle.src="media/"+filename+".wav";
+        srcEle.type="audio/wav";
+        audioEle.appendChild(srcEle);
+        var src2Ele = document.createElement("source");
+        src2Ele.src="media/"+filename+".mp3";
+        src2Ele.type="audio/mp3";
+        audioEle.appendChild(src2Ele);
+      }
       tgtDivEle.appendChild(audioEle);
     }
 
