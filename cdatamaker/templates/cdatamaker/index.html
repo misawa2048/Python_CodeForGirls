@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html><head>
   <script>
+    var MAX_FILE_SIZE = 4096
     function callback(_jsonTxt){
       console.log("_jsonTxt:"+_jsonTxt);
       var outTxtFullEle = document.getElementById("iOutTextFull");
@@ -40,8 +41,8 @@
       if(text==""){
         text="dummy";
       }
-      if(text.length>5000){
-        text = text.substr(0,5000);
+      if(text.length>MAX_FILE_SIZE){
+        text = text.substr(0,MAX_FILE_SIZE);
       }
       text = inTextEle.value.replace(/"/g, '^22');
       text = text.replace(/,/g, '^2C');
@@ -107,8 +108,8 @@
         var bs64Arr = reader.result.split(',');
         var bs64Val = bs64Arr[(bs64Arr.length>1)?1 :0]
         */
-        if(bs64Val.length>5000){
-          bs64Val = bs64Val.substr(0,5000);
+        if(bs64Val.length>MAX_FILE_SIZE){
+          bs64Val = bs64Val.substr(0,MAX_FILE_SIZE);
         }
         inTextEle.value = bs64Val;
       }, false);
@@ -125,12 +126,12 @@
   <input type="file" onchange="previewFile()"><br>
 
   <form id = "iForm1" method="post" enctype="multipart/form-data">
-    text(<5kB):<br/>
-    <textarea  id="iInText" type="text" rows="10" cols="50">
+    text(<4kB):<br/>
+<textarea  id="iInText" type="text" rows="10" cols="50">
 10 cls
-20 print "d""hello"
+20 print "hello, world"
 30 goto 20
-    </textarea><br/>
+</textarea><br/>
     <input id="iInPath" type="text" value="output" readonly/>
     <input type="button" value=".wavに変換" onclick="onSend()"/>
   </form>
