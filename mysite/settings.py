@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'api.templatetags.custom_filters',
     'cdatamaker.apps.CdatamakerConfig',
+    'ar.apps.ArConfig',
 ]
 
 

@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('', include('api.urls')),
     path('', include('cdatamaker.urls')),
+    path('', include('ar.urls')),
     path('test/', server_error),
 ]
 
