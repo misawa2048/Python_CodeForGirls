@@ -1,5 +1,4 @@
-
-  window.addEventListener('load', init);
+window.addEventListener('load', init);
 
 function body_onload(){
   var res = $("#iTestText").val();
@@ -23,13 +22,34 @@ function init(){
         const scene = new THREE.Scene();
 
         // カメラを作成
-        const camera = new THREE.PerspectiveCamera(45, width / height);
-        camera.position.set(-100, 150, 500);
+        const camera = new THREE.PerspectiveCamera(60, width / height);
+        camera.position.set(0, 0, 500);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         // ドーナツを作る
         const mesh = new Donuts();
+        mesh.position.set(100, 0, 0);
         scene.add(mesh);
+
+        // 平行光源
+        const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
+        directionalLight.position.set(1, 1, 1);
+        // シーンに追加
+        scene.add(directionalLight);
+
+        // skysphere
+        console.log("sky");
+        var skyGeo = new THREE.SphereGeometry(300, 25, 25);
+        var loader  = new THREE.TextureLoader(),
+        texture = loader.load( "../static/models/spruit_sunrise.jpg" );
+        var material0 = new THREE.MeshBasicMaterial({ map: texture,});
+        //var material0 = new THREE.MeshNormalMaterial();
+
+        var sky = new THREE.Mesh(skyGeo, material0);
+        sky.material.side = THREE.BackSide;
+        scene.add(sky);
+
+
 
         tick();
 
@@ -49,7 +69,7 @@ function init(){
         /** コンストラクターです。 */
         constructor() {
           // ジオメトリを作成
-          const geometry = new THREE.TorusGeometry(120, 40, 60, 50);
+          const geometry = new THREE.TorusGeometry(120, 40, 60, 50,Math.PI * 1.99);
 
           // マテリアルを作成
           const material = new THREE.MeshNormalMaterial();
