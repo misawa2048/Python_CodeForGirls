@@ -2,11 +2,14 @@
 <!DOCTYPE html>
 <html><head>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="{% static 'js/build/three.js' %}" ></script>
-  <script src="{% static 'js/mytestjs.js' %}" ></script>
-  <title>ar test</title>
-</head>
-<body onload="body_onload()">test0
+    <title>ar test</title>
+    <script src="{% static 'js/three.js-r126/build/three.js' %}" ></script>
+    <script src="{% static 'js/three.js-r126/examples/jsm/loaders/FBXLoader.js' %}" type="module"></script>
+    <script src="{% static 'js/mytestjs.js' %}" ></script>
+  </head>
+  
+<body onload="body_onload()">
+  test0
 <div id="iTestDiv"><input id="iTestText" type="text" width="100" value="abc"></div>
 <canvas id="myCanvas"></canvas>
 </body>

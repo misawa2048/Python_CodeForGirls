@@ -1,3 +1,5 @@
+//import { FBXLoader } from '../static/js/three.js-r126/examples/jsm/loaders/FBXLoader.js';
+
 window.addEventListener('load', init);
 
 function body_onload(){
@@ -10,6 +12,8 @@ function init(){
   // サイズを指定
         const width = 320;
         const height = 240;
+
+        //const floader = new THREE.FBXLoader();
 
         // レンダラーを作成
         const renderer = new THREE.WebGLRenderer({
