@@ -1,4 +1,4 @@
-import { FBXLoader } from '../static/js/three.js-r126/examples/jsm/loaders/FBXLoader.js';
+//import { FBXLoader } from '../static/js/three.js-r126/examples/jsm/loaders/FBXLoader.js';
 
 window.addEventListener('load', init);
 
