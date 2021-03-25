@@ -39,15 +39,15 @@ function init(){
 
         // skysphere
         console.log("sky");
-        var skyGeo = new THREE.SphereGeometry(300, 25, 25);
+        var skyGeo = new THREE.SphereGeometry(1300, 25, 25);
         var loader  = new THREE.TextureLoader(),
         texture = loader.load( "../static/models/spruit_sunrise.jpg" );
         var material0 = new THREE.MeshBasicMaterial({ map: texture,});
         //var material0 = new THREE.MeshNormalMaterial();
 
-        var sky = new THREE.Mesh(skyGeo, material0);
-        sky.material.side = THREE.BackSide;
-        scene.add(sky);
+        const skyMesh = new THREE.Mesh(skyGeo, material0);
+        skyMesh.material.side = THREE.BackSide;
+        scene.add(skyMesh);
 
 
 
@@ -57,6 +57,10 @@ function init(){
         function tick() {
           mesh.rotation.x += 0.02;
           mesh.rotation.y += 0.01;
+
+          //skyMesh.rotation.y -= 0.001;
+          camera.rotation.x += 0.01;
+          camera.rotation.y += 0.02;
 
           // レンダリング
           renderer.render(scene, camera);
